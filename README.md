@@ -123,10 +123,31 @@ Reviews span **January – September 2025** to support trend detection.
 - **Plotly** — Charts and visualizations
 - **Pandas** — Data manipulation
 
+## PH Use Case
+
+This system is tailored for Philippine retail, e-commerce, and service companies that need data-driven customer experience management. It addresses:
+
+- **Localized feedback analysis** — VADER sentiment analysis handles code-switched text (Taglish) and informal expressions common in PH customer reviews.
+- **Category-driven insights** — Product categories map to typical PH retail segments (Electronics, Home & Kitchen, Clothing) with extensible labeling.
+- **Trend detection** — Monthly aggregation surfaces seasonal patterns relevant to PH consumption cycles (13th-month spending, back-to-school, holiday shopping).
+- **Actionable recommendations** — Rule-based heuristics produce targeted business actions that local operations teams can execute immediately.
+
+---
+
+## CI/CD Pipelines
+
+| Workflow | Trigger | What it does |
+|----------|---------|-------------|
+| Test | Every push/PR to `main` | Ruff lint + pytest with 80% coverage threshold |
+| Security | Every push/PR + weekly Monday | pip-audit (vulnerability scan) + Bandit (SAST) |
+
+---
+
 ## 📄 License
 
 MIT
 
 ---
 
-*Portfolio Project 4 — [AgenticPH Labs](https://agenticph-labs.github.io/portfolio)*
+*Portfolio Project 4 — [AgenticPH Labs](https://agenticph-labs.github.io/portfolio)*  
+*Managed by the Hermes Agent System · agenticph.com*
