@@ -1,6 +1,6 @@
 # Customer Feedback Intelligence System
 
-[![Status: Live](https://img.shields.io/badge/status-live-22c55e.svg)](https://github.com/agenticph-labs/p4-customer-feedback-intel)
+[![Status: Live](https://img.shields.io/badge/status-live-22c55e.svg)](https://github.com/agenticph-labs/LP4)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An NLP-powered system that analyzes customer feedback data — extracts sentiment, discovers topics, detects trends, and generates actionable recommendations.
@@ -42,7 +42,7 @@ A set of hand-crafted rules inspects the analyzed data to derive business action
 ## 📁 Project Structure
 
 ```
-p4-customer-feedback-intel/
+LP4/
 ├── data/
 │   └── reviews.csv          # 100 sample customer reviews (Jan–Sep 2025)
 ├── nlp_pipeline.py          # Core NLP pipeline module
@@ -62,8 +62,8 @@ p4-customer-feedback-intel/
 
 ```bash
 # Clone the repository
-git clone https://github.com/agenticph-labs/p4-customer-feedback-intel.git
-cd p4-customer-feedback-intel
+git clone https://github.com/agenticph-labs/LP4.git
+cd LP4
 
 # Install dependencies
 pip install -r requirements.txt
