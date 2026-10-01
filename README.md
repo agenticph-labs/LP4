@@ -3,6 +3,8 @@
 [![Status: Live](https://img.shields.io/badge/status-live-22c55e.svg)](https://github.com/agenticph-labs/LP4)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+🌱 **Built in the open, for the open.** A community tool by Filipino builders — turning customer voices into actionable insights, no enterprise license required.
+
 An NLP-powered system that analyzes customer feedback data — extracts sentiment, discovers topics, detects trends, and generates actionable recommendations.
 
 ## 📊 Dashboard Preview
@@ -149,5 +151,5 @@ MIT
 
 ---
 
-*Portfolio Project 4 — [AgenticPH](https://agenticph-labs.github.io/portfolio)*  
-*Managed by the Hermes Agent System · agenticph.com*
+*Built in the open, for the open.*  
+*[AgenticPH Labs](https://agenticph-labs.github.io/portfolio) — Filipino builders crafting practical AI tools for the Philippines.*
