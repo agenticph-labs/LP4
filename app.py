@@ -11,11 +11,9 @@ from pathlib import Path
 # ── Add project root to path ──────────────────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import streamlit as st
 
 from nlp_pipeline import run_full_pipeline
 

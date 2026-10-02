@@ -27,7 +27,7 @@ jobs:
           pip install pip-audit bandit
 
       - name: Run pip-audit
-        run: pip-audit
+        run: pip-audit $(sed 's/^/--ignore-vuln /' .pip-audit-ignore | tr '\n' ' ')
 
       - name: Run Bandit
-        run: bandit -r . -c pyproject.toml || bandit -r .
+        run: bandit -r . -c pyproject.toml

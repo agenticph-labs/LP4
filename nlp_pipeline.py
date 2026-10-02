@@ -7,20 +7,19 @@ for customer reviews using VADER, TF-IDF + NMF, and temporal aggregation.
 
 import re
 import warnings
-from datetime import datetime
 from typing import Any
 
 import numpy as np
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # ── Import VADER ──────────────────────────────────────────────────────────────
 try:
-    from nltk.sentiment import SentimentIntensityAnalyzer
     import nltk
+    from nltk.sentiment import SentimentIntensityAnalyzer
 
     nltk.download("vader_lexicon", quiet=True)
     _sia = SentimentIntensityAnalyzer()
@@ -165,7 +164,10 @@ def generate_recommendations(
             {
                 "area": "Product Quality Issues",
                 "finding": f"Top complaint keywords: {complaint_areas}",
-                "action": "Initiate root-cause analysis on mentioned components; escalate quality checks.",
+                "action": (
+                    "Initiate root-cause analysis on mentioned components; "
+                    "escalate quality checks."
+                ),
                 "urgency": "High" if len(low_rated) > 15 else "Medium",
             }
         )
@@ -182,8 +184,14 @@ def generate_recommendations(
         recs.append(
             {
                 "area": f"Negative Sentiment — {worst_cat}",
-                "finding": f"{neg_by_cat.iloc[0]} negative reviews in {worst_cat}, highest of all categories.",
-                "action": f"Review {worst_cat.lower()} QA process and customer support script for this category.",
+                "finding": (
+                    f"{neg_by_cat.iloc[0]} negative reviews in {worst_cat}, "
+                    "highest of all categories."
+                ),
+                "action": (
+                    f"Review {worst_cat.lower()} QA process and "
+                    "customer support script for this category."
+                ),
                 "urgency": "High",
             }
         )
@@ -199,20 +207,33 @@ def generate_recommendations(
         recs.append(
             {
                 "area": "Shipping & Fulfillment",
-                "finding": f"{len(shipping_reviews)} reviews mention shipping, delivery, or returns.",
-                "action": "Audit packaging standards and carrier performance; streamline return process.",
+                "finding": (
+                    f"{len(shipping_reviews)} reviews mention "
+                    "shipping, delivery, or returns."
+                ),
+                "action": (
+                    "Audit packaging standards and carrier performance; "
+                    "streamline return process."
+                ),
                 "urgency": "Medium",
             }
         )
 
     # 4. Price complaints
-    price_reviews = df[df["review_text"].str.lower().str.contains("price|expensive|waste of money|worth")]
+    price_reviews = df[
+        df["review_text"].str.lower().str.contains(
+            "price|expensive|waste of money|worth"
+        )
+    ]
     if not price_reviews.empty:
         recs.append(
             {
                 "area": "Pricing Perception",
                 "finding": f"{len(price_reviews)} reviews reference price or value concerns.",
-                "action": "Review pricing strategy; consider value-add messaging or mid-tier options.",
+                "action": (
+                    "Review pricing strategy; consider "
+                    "value-add messaging or mid-tier options."
+                ),
                 "urgency": "Low" if len(price_reviews) < 8 else "Medium",
             }
         )
@@ -223,10 +244,17 @@ def generate_recommendations(
         vec = TfidfVectorizer(max_df=0.8, min_df=2, max_features=1000)
         tfidf_vec = vec.fit_transform(all_processed)
         feat = vec.get_feature_names_out()
-        nmf_temp = NMF(n_components=min(5, tfidf_vec.shape[1] - 1), random_state=42, init="nndsvdar")
+        nmf_temp = NMF(
+            n_components=min(5, tfidf_vec.shape[1] - 1),
+            random_state=42,
+            init="nndsvdar",
+        )
         nmf_temp.fit(tfidf_vec)
         # find the topic with the most negative keywords
-        neg_keywords = set("terrible horrible awful broken defect rust overheat leak damage crack".split())
+        neg_keywords = set(
+            "terrible horrible awful broken defect rust "
+            "overheat leak damage crack".split()
+        )
         topic_neg_scores = []
         for comp in nmf_temp.components_:
             top_idx = comp.argsort()[:-11:-1]
@@ -239,8 +267,14 @@ def generate_recommendations(
             recs.append(
                 {
                     "area": "Emerging Complaint Cluster",
-                    "finding": f"Topic dominated by negative keywords: {', '.join(worst_keywords)}.",
-                    "action": "Investigate this cluster via manual review; prioritize fix in next sprint.",
+                    "finding": (
+                        f"Topic dominated by negative keywords: "
+                        f"{', '.join(worst_keywords)}."
+                    ),
+                    "action": (
+                        "Investigate this cluster via manual review; "
+                        "prioritize fix in next sprint."
+                    ),
                     "urgency": "High",
                 }
             )
